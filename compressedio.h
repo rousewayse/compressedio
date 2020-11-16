@@ -49,34 +49,73 @@ typedef struct cFILE {
  *R
  */
 
+#define MODE_ERROR -1
+#define CFILE_NOT_NULL 1
+#define FOPEN_ERROR 2
+#define FOPEN_OK 0
+//MODE_ERROR - FILE_MODE has wrong value
+//CFILE_NOT_NULL - user may be tried to open already initialized CFILE
+//FOPEN_ERROR - error happend while open file
+//FOPEN_OK - no errors
 int cfopen (const char* CFILENAME, const char* FILE_MODE, cFILE* CFILE );
 //opens CFILENAME as compressed file in FILE_MODE mode
 //return 0 if succseeded
 
-
-int cfclose (cFILE* cFILE);
+#define CFILE_IS_NULL -1
+#define FCLOSE_OK 0
+#define CBRUN_ERROR 1
+//CFILE_IS_NULL - user tried to close alredy closed or not initialized CFILE
+//FCLOSE_OK - no errors
+//CBURN_ERROR - bad IF_CBRUN value
+#define CBURN 1 
+//write file before closing 
+#define NOT_CBURN 0
+//do not write file before closing - just close
+int cfclose (cFILE* cFILE, int IF_CBURN);
 //closes CFILE, writes buffer if it's possible and frees allocated memory.
 //return 0 if succseeded
 
+#define BLOCK_NOT_EMPTY -1
+#define LOAD_OK 0
+#define NEW_BLOCK_LOAD_ERROR 1
+#define NULL_BLOCK_ERROR 2
+//NEW_BLOCK_LOAD_ERROR - user tried to load block that is not in file, probably user has inserted this block
+//BLOCK_NOT_EMPTY error occurs when user tries loading data in alreaddy loaded block
+//LOAD_OK means that loading block data is done without errors
 
 int loadCurBlockData ( cFILE* CFILE);
 //loads _CURR_BLOCK from a compressed file
 //return 0 if succseeded
 
+#define CFILE_ERROR -1
+
+#define INSERT_OK 0
 int insertBlock (void* DATA, size_t DATA_SIZE, cFILE* CFILE);
-//Inserts new block with DATA after _CURR_BLOCK and updates other blocks service data 
+//Inserts new block with DATA after _CURR_BLOCK and do not updates other blocks service data 
 //returns 0 of succseeded
 
+
+#define REMOVE_OK 0
+#define NULL_BLOCK_ERROR 1
 int removeCurrBlock (cFILE* CFILE);
 //removes curr block and updates other blocks service data
 //return 0 if succseeded
+
+#define WRITE_BLOKS_ERROR -1
+#define WRITE_BLOCKS_OK 0
 
 int writeBlocks(cFILE* CFILE);
 //writes all blocks data to the disks
 //returns 0 if succseeded
 
-int mergeBlocks (size_t start, size_t end, cFILE* CFILE);
+//int mergeBlocks (size_t start, size_t end, cFILE* CFILE);
 //merges blocks from start to end - 1, and updates blocks service data
+
+#define CANNOT_MOVE 1
+
+int moveNextBlock (cFILE* CFILE);
+
+int movePrevBlock (cFILE* CFILE);
 
 #ifdef __cplusplus
 }
