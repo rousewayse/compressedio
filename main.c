@@ -1,6 +1,6 @@
+#include<stdio.h>
+#include<stdlib.h>
 #include "compressedio.h"
 
-int main() {
-    f();
-    return 0;
+void main (){
 }
