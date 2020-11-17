@@ -1,7 +1,8 @@
 #include "compressedio.h"
 cBLOCK* _getBlock(FILE* fin){
     cBLOCK* block = malloc(sizeof(cBLOCK));
-    fread(&block->_SIZE, sizeof(uLongf), 1, fin);
+    int res = fread(&block->_SIZE, sizeof(uLongf), 1, fin);
+    if(res == 0) return NULL;
     fread(&block->_CSIZE, sizeof(uLongf), 1, fin);
     block->_FPOS=ftell(fin);
     block->DATA = NULL;
@@ -241,7 +242,7 @@ int movePrevBlock(cFILE* CFILE){
 }
 
 
-int dropCurrBlockData(cFILE* CFILE){
+int  dropCurrBlockData(cFILE* CFILE){
     if (CFILE ==  NULL && CFILE->_BLOCKS == NULL)
         return CFILE_ERROR;
 
@@ -250,20 +251,25 @@ int dropCurrBlockData(cFILE* CFILE){
 
     if (CFILE->_BLOCKS->_CURR_BLOCK->DATA != NULL){ 
         free(CFILE->_BLOCKS->_CURR_BLOCK->DATA);
+        CFILE->_BLOCKS->_CURR_BLOCK->DATA = NULL;
         CFILE->_BLOCKS->_CURR_BLOCK->_SIZE = 0;
     }
+    else return -1;
     return 0;
 }
 
 
-int  getCurrBlockData(cFILE* CFILE, void* DATA){
+int  getCurrBlockData(cFILE* CFILE, void** DATA){
     if (CFILE ==  NULL && CFILE->_BLOCKS == NULL)
         return CFILE_ERROR;
 
     if(CFILE->_BLOCKS->_CURR_BLOCK == NULL)
         return NULL_BLOCK_ERROR;
-    
-    DATA = CFILE->_BLOCKS->_CURR_BLOCK->DATA;
+
+    if (CFILE->_BLOCKS->_CURR_BLOCK->DATA == NULL)
+       return BLOCK_DATA_NULL_ERROR; 
+
+    *DATA = CFILE->_BLOCKS->_CURR_BLOCK->DATA;
     return 0;
 }
 
@@ -294,6 +300,8 @@ int convertFile(const char*  filename){
         }
         else return -1;
     }
+    fclose(fin);
+    fclose(fout);
     free(BUFF);
     free(COMPRESSED_BUFF);
     return 0;

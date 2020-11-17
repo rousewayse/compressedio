@@ -70,9 +70,9 @@ int movePrevBlock (cFILE* CFILE);
 
 void deleteBlocks(cFILE* CFILE);
 
-int dropCurrBlockData(cFILE* CFILE);
+int   dropCurrBlockData(cFILE* CFILE);
 
-int  getCurrBlockData(cFILE* CFILE, void* DATA);
+int  getCurrBlockData(cFILE* CFILE, void** DATA);
 
 int  crewind(cFILE* CFILE);
 
@@ -96,6 +96,7 @@ int convertFile(const char*  filename);
 #define BLOCK_LOAD_ERROR -2 
 #define NEW_BLOCK_LOAD_ERROR 1
 #define NULL_BLOCK_ERROR -1
+#define BLOCK_DATA_NULL_ERROR 2
 //NEW_BLOCK_LOAD_ERROR - user tried to load block that is not in file, probably user has inserted this block
 //BLOCK_NOT_EMPTY error occurs when user tries loading data in alreaddy loaded block
 //LOAD_OK means that loading block data is done without errors
