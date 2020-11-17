@@ -76,7 +76,7 @@ int  getCurrBlockData(cFILE* CFILE, void** DATA);
 
 int  crewind(cFILE* CFILE);
 
-int convertFile(const char*  filename);
+int convertFile(const char*  filename, const char* output_filename);
 
 #define CFILE_ALREADY_OPENED -1
 #define FOPEN_ERROR -2

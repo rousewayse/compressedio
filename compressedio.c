@@ -281,10 +281,10 @@ int  crewind(cFILE* CFILE){
         return 0;
 }
 
-int convertFile(const char*  filename){
+int convertFile(const char*  filename, const char* output_filename){
     
     FILE* fin = fopen(filename, "rb");
-    FILE* fout = fopen("output_file" ,"wb");
+    FILE* fout = fopen(output_filename ,"wb");
     uLongf BUFF_SIZE = DEFAULT_BLOCK_SIZE;
     void* BUFF = malloc(BUFF_SIZE);
     void* COMPRESSED_BUFF = malloc(BUFF_SIZE + 180);
