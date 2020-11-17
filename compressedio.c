@@ -14,11 +14,17 @@ cBLOCKS* _getBlocks(FILE* fin){
     cBLOCKS* blocks = malloc(sizeof(cBLOCKS));
     blocks->_HEAD = _getBlock(fin);
     blocks->_CURR_BLOCK = blocks->_HEAD;
-    blocks->_BLOCKS_AMOUNT = 1;
-    while(!feof(fin)){
+    long fpos_prev = 0;
+    long fpos = ftell(fin);
+    while(fpos!=fpos_prev){
+        
         blocks->_CURR_BLOCK->_NEXT_BLOCK = _getBlock(fin);
-        blocks->_BLOCKS_AMOUNT++;
+        blocks->_CURR_BLOCK = blocks->_CURR_BLOCK->_NEXT_BLOCK;
+        fpos_prev = fpos;
+        fpos = ftell(fin);
     }
+    blocks->_CURR_BLOCK = blocks->_HEAD;
+
     return blocks;
 }
 
@@ -269,4 +275,26 @@ int  crewind(cFILE* CFILE){
         return 0;
 }
 
+int convertFile(const char*  filename){
+    
+    FILE* fin = fopen(filename, "rb");
+    FILE* fout = fopen("output_file" ,"wb");
+    uLongf BUFF_SIZE = DEFAULT_BLOCK_SIZE;
+    void* BUFF = malloc(BUFF_SIZE);
+    void* COMPRESSED_BUFF = malloc(BUFF_SIZE + 180);
+    uLongf COMPRESSED_BUFF_SIZE = DEFAULT_BLOCK_SIZE + 180;
 
+    while(!feof(fin)){
+        uLongf BUFF_SIZE = fread(BUFF, 1, DEFAULT_BLOCK_SIZE, fin);
+        int res = compress(COMPRESSED_BUFF, &COMPRESSED_BUFF_SIZE, BUFF, BUFF_SIZE);
+        if (!res) {
+            fwrite(&BUFF_SIZE, sizeof(uLongf), 1, fout);
+            fwrite(&COMPRESSED_BUFF_SIZE, sizeof(uLongf), 1, fout);
+            fwrite(COMPRESSED_BUFF, 1, COMPRESSED_BUFF_SIZE, fout);
+        }
+        else return -1;
+    }
+    free(BUFF);
+    free(COMPRESSED_BUFF);
+    return 0;
+}

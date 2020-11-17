@@ -1,5 +1,5 @@
 build: main.o compressedio.o
-	gcc main.o compressedio.o -o exec.bin
+	gcc -lz main.o compressedio.o -o exec.bin
 %.o: %.c
 	gcc -c $<
 clean: 

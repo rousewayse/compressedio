@@ -36,7 +36,6 @@ typedef struct cBLOCK {
 typedef  struct cBLOCKS {
     cBLOCK* _HEAD;
     cBLOCK* _CURR_BLOCK;
-    size_t _BLOCKS_AMOUNT;
 } cBLOCKS;
 
     
@@ -53,7 +52,7 @@ int cfopen (const char* CFILENAME, cFILE* CFILE );
 int cfclose (cFILE* cFILE, int IF_CBURN);
 //closes CFILE, writes buffer if it's possible and frees allocated memory.
 
-int loadCurBlockData ( cFILE* CFILE);
+int loadCurrBlockData ( cFILE* CFILE);
 //loads _CURR_BLOCK from a compressed file
 
 int insertBlock (void* DATA, size_t DATA_SIZE, cFILE* CFILE);
@@ -76,6 +75,8 @@ int dropCurrBlockData(cFILE* CFILE);
 int  getCurrBlockData(cFILE* CFILE, void* DATA);
 
 int  crewind(cFILE* CFILE);
+
+int convertFile(const char*  filename);
 
 #define CFILE_ALREADY_OPENED -1
 #define FOPEN_ERROR -2
