@@ -46,7 +46,7 @@ typedef struct cFILE {
 } cFILE;
 //BLOCKS is a list of compressed data blocks containing in FILE;
 
-int cfopen (const char* CFILENAME, cFILE* CFILE );
+int cfopen (const char* CFILENAME, cFILE** CFILE );
 //opens CFILENAME as compressed file in FILE_MODE mode
 
 int cfclose (cFILE* cFILE, int IF_CBURN);

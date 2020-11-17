@@ -17,7 +17,6 @@ cBLOCKS* _getBlocks(FILE* fin){
     long fpos_prev = 0;
     long fpos = ftell(fin);
     while(fpos!=fpos_prev){
-        
         blocks->_CURR_BLOCK->_NEXT_BLOCK = _getBlock(fin);
         blocks->_CURR_BLOCK = blocks->_CURR_BLOCK->_NEXT_BLOCK;
         fpos_prev = fpos;
@@ -28,8 +27,8 @@ cBLOCKS* _getBlocks(FILE* fin){
     return blocks;
 }
 
-int cfopen (const char* CFILENAME, cFILE* CFILE ){
-    if (CFILE != NULL) {
+int cfopen (const char* CFILENAME, cFILE** CFILE ){
+    if (*CFILE != NULL) {
         return CFILE_ALREADY_OPENED;
     }
 
@@ -41,24 +40,22 @@ int cfopen (const char* CFILENAME, cFILE* CFILE ){
     long pos = ftell(fin);
     fseek(fin, 0, SEEK_SET);
     
-    CFILE = malloc(sizeof(cFILE));
-    CFILE->_FILE = fin;
-    CFILE->_MODE = FILE_MODE;
- 
+    (*CFILE) = malloc(sizeof(cFILE));
+    (*CFILE)->_FILE = fin;
+    (*CFILE)->_MODE = FILE_MODE;
     if(pos>0){
-        CFILE->_BLOCKS = _getBlocks(fin);
+        (*CFILE)->_BLOCKS = _getBlocks(fin);
         fseek(fin, 0, SEEK_SET);
     } 
     else{
-        CFILE->_BLOCKS = malloc(sizeof(cBLOCKS));
-        CFILE->_BLOCKS->_HEAD = NULL;
-        CFILE->_BLOCKS->_CURR_BLOCK = NULL;
+        (*CFILE)->_BLOCKS = malloc(sizeof(cBLOCKS));
+        (*CFILE)->_BLOCKS->_HEAD = NULL;
+        (*CFILE)->_BLOCKS->_CURR_BLOCK = NULL;
     }
     return FOPEN_OK;
 }
 
 void deleteBlocks(cFILE* CFILE){
-    if (CFILE->_BLOCKS != NULL){
         CFILE->_BLOCKS->_CURR_BLOCK = CFILE->_BLOCKS->_HEAD;
         while (CFILE->_BLOCKS->_CURR_BLOCK != NULL){
             cBLOCK* tmp = CFILE->_BLOCKS->_CURR_BLOCK;
@@ -66,12 +63,11 @@ void deleteBlocks(cFILE* CFILE){
             if (tmp->DATA != NULL) free (tmp->DATA);
             free(tmp);
         }
-    }
 }
 
 int cfclose(cFILE* CFILE, int IF_CBURN){
-    if (CFILE == NULL) {
-        return CFILE_IS_NULL;
+    if (CFILE == NULL || CFILE->_BLOCKS == NULL) {
+        return CFILE_ERROR;
     }
     if(IF_CBURN != CBURN || IF_CBURN != NOT_CBURN) {
         return CBRUN_ERROR;
@@ -89,10 +85,12 @@ int cfclose(cFILE* CFILE, int IF_CBURN){
 }
 
 int loadCurrBlockData(cFILE* CFILE){
-    if (CFILE->_BLOCKS ==  NULL || CFILE->_BLOCKS->_CURR_BLOCK == NULL){
+    if (CFILE == NULL || CFILE->_BLOCKS ==  NULL)
+        return CFILE_ERROR;
+
+    if ( CFILE->_BLOCKS->_CURR_BLOCK == NULL){
         return NULL_BLOCK_ERROR;
     }
-    
     if (CFILE->_BLOCKS->_CURR_BLOCK->DATA != NULL){
         return BLOCK_NOT_EMPTY_ERROR;
     }
@@ -223,6 +221,7 @@ int moveNextBlock(cFILE* CFILE){
     else {
         return CFILE_ERROR;
     }
+    return 0;
 }
 
 int movePrevBlock(cFILE* CFILE){
@@ -238,6 +237,7 @@ int movePrevBlock(cFILE* CFILE){
     else {
         return CFILE_ERROR;
     }
+    return 0;
 }
 
 
