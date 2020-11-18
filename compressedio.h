@@ -55,7 +55,7 @@ int cfclose (cFILE* cFILE, int IF_CBURN);
 int loadCurrBlockData ( cFILE* CFILE);
 //loads _CURR_BLOCK from a compressed file
 
-int insertBlock (void* DATA, size_t DATA_SIZE, cFILE* CFILE);
+int insertBlock (void* DATA, uLongf  DATA_SIZE, cFILE* CFILE);
 //Inserts new block with DATA after _CURR_BLOCK and do not updates other blocks service data 
 
 int removeCurrBlock (cFILE* CFILE);

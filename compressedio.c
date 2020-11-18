@@ -116,7 +116,7 @@ int loadCurrBlockData(cFILE* CFILE){
 }
 
 
-cBLOCK* _createBlock (void* DATA, size_t DATA_SIZE){
+cBLOCK* _createBlock (void* DATA, uLongf DATA_SIZE){
     cBLOCK* block = malloc(sizeof(cBLOCK));
     block->DATA = DATA;
     block->_SIZE = DATA_SIZE;
@@ -125,7 +125,7 @@ cBLOCK* _createBlock (void* DATA, size_t DATA_SIZE){
     block->_NEXT_BLOCK = NULL;
 }
 
-int insertBlock (void* DATA, size_t DATA_SIZE, cFILE* CFILE){
+int insertBlock (void* DATA, uLongf DATA_SIZE, cFILE* CFILE){
     if(CFILE != NULL && CFILE->_BLOCKS != NULL){
 
         if (CFILE->_BLOCKS->_HEAD== NULL){
