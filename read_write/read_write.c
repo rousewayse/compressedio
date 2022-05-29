@@ -4,6 +4,9 @@ size_t cfread(void* ptr, size_t size, size_t nmemb, cFILE* cfile){
 	if (cfile == NULL || cfile->btable == NULL){
 		return 0;
 	}
+	if ((cfile->mode&2) == 0){
+		return 0;
+	}
 	size_t block_size = cfile->config->block_size;
 	size_t bytes_read = 0;
 	size_t ptr_filled = 0;
@@ -88,6 +91,9 @@ size_t cfread(void* ptr, size_t size, size_t nmemb, cFILE* cfile){
 
 size_t cfwrite(void* ptr, size_t size, size_t nmemb, cFILE* cfile){
 	if (cfile == NULL || cfile->btable == NULL){
+		return 0;
+	}
+	if ((cfile->mode&1) == 0){
 		return 0;
 	}
 	size_t block_size = cfile->config->block_size;

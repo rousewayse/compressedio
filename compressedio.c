@@ -154,7 +154,44 @@ int init_empty_file(cFILE* cfile){
 	return 0;
 }
 
-cFILE* cfopen(const char* filename, cCONFIG* user_config){
+//AppendCreatePosReadWrite - xxx
+int parse_mode(char* mode){
+	if (mode == NULL){
+		return -1;//invalid mode
+	}
+	int res = 0;
+	
+	switch(mode[0]){
+		case 'r':
+			res += 2;
+			break;
+		case 'w':
+			res += 1 + 8;
+			break;
+		case 'a':
+			res += 1 + 4 + 8 + 16;
+			break;
+		default:
+			res = -1;
+			break;
+	}
+	if (res == -1){
+		return -1;
+	}
+
+	if (strlen(mode) > 1 && mode[1] == '+'){
+		res = res|(1+2);
+	}
+	return res;
+}
+
+
+cFILE* cfopen(const char* filename, cCONFIG* user_config, char* mode){
+	int mode_parsed = parse_mode(mode);
+	if (mode_parsed == -1){
+		return NULL;
+	}
+	
 	FILE* tmp_file = fopen(filename, "r");
 	int file_exists = 0;
 	if(tmp_file == NULL){
@@ -162,6 +199,10 @@ cFILE* cfopen(const char* filename, cCONFIG* user_config){
 	} else {
 		file_exists = 1;
 		fclose(tmp_file);
+	}
+	
+	if ((mode_parsed&8) != 0){
+		file_exists = 0;
 	}
 
 	const char* file_mode = "r+b";
@@ -205,7 +246,7 @@ cFILE* cfopen(const char* filename, cCONFIG* user_config){
 	}
 
 	cfile->file = file;
-//	cfile->mode = file_mode;
+	cfile->mode = mode_parsed;
 	cfile->filename = malloc(strlen(filename) +1);
 	strcpy(cfile->filename, filename);
 
@@ -265,7 +306,9 @@ cFILE* cfopen(const char* filename, cCONFIG* user_config){
 		
 	cfile->pos = 0;
 	cfile->cur_block = 0;
-		
+	if((mode_parsed&16) == 16){
+		cfseek(cfile, 0, SEEK_SET);
+	}
 	return cfile;
 }
 
@@ -281,12 +324,12 @@ int cfclose(cFILE* cfile){
 
 	if ( overusage_persent(cfile) > cfile->config->sealing_treshold){
 		cseal_blocks(cfile);
-		puts("sealing");
 	} else {
 		write_ftable(cfile);
 		write_btable(cfile);	
 		write_header(cfile->file, cfile->header );
 	}
+
 	free_btable(cfile->btable);
 	free_fbtable(cfile->fbtable);
 	
@@ -307,7 +350,7 @@ int convertFile(const char* filename, const char* output_filename, size_t block_
 	FILE* fin = fopen(filename, "rb");
 	cCONFIG* config  = get_default_cconfig();
 	config->block_size = block_size;
-	cFILE* fout = cfopen(output_filename, config);
+	cFILE* fout = cfopen(output_filename, config, "w+");
 	set_compressor(compressor, fout);
 	void* buff = malloc(block_size);
 	

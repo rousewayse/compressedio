@@ -23,6 +23,7 @@ typedef struct cBLOCK cBLOCK;
 #include "seal/seal.h"
 typedef struct cFILE{
 	size_t pos;
+	int  mode;
 
 	FILE* file;
 	char* filename;
@@ -50,7 +51,7 @@ typedef struct cFILE{
 size_t cfread(void* ptr, size_t size, size_t nmemb, cFILE* cfile);
 
 size_t cfwrite(void* ptr, size_t size, size_t nmemb, cFILE* cfile);
-cFILE* cfopen(const char* filename, cCONFIG* user_config);
+cFILE* cfopen(const char* filename, cCONFIG* user_config, char* mode);
 int load_block_data(cFILE* cfile, cBLOCK* block);
 int set_compressor(cCOMPRESSOR* compressor, cFILE* cfile);
 int cfseek(cFILE* cfile, long int offset, int origin);
