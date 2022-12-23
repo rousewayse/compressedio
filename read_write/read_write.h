@@ -1,6 +1,0 @@
-#ifndef _COMPRESSEDIO_READ_WRITE_LIB
-#define _COMPRESSEDIO_READ_WRITE_LIB
-
-
-
-#endif
