@@ -1,7 +1,7 @@
 \page fileformat A compressed file format page
 
 ## General storage file structure ##
-
+A table showing a storage file structure:
 
 |Structure | Member | Size in bytes | Description|
 |:---------|:-------|:--------------|:-----------|
