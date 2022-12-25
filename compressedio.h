@@ -148,8 +148,9 @@ extern "C"{
 	 * \brief typedef of struct cCONFIG.*/
 	typedef struct cCONFIG cCONFIG;
 	
-	/*! \ingroup cconfig
+	/*!\ingroup cconfig
 	 *  \brief Generate a default configuration.
+	 *	
 	 *	A list of default values:
 	 *		- [base_block_size](\ref cCONFIG::base_block_size) is set to `16384`, i.e. 16Kb;
 	 *		- [cache_size](\ref cCACHE) is set to `0`;
