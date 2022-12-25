@@ -148,6 +148,21 @@ extern "C"{
 	 * \brief typedef of struct cCONFIG.*/
 	typedef struct cCONFIG cCONFIG;
 	
+	/*! \ingroup cconfig
+	 *  \brief Generate a default configuration.
+	 *	A list of default values:
+	 *		- [base_block_size](\ref cCONFIG::base_block_size) is set to `16384`, i.e. 16Kb;
+	 *		- [cache_size](\ref cCACHE) is set to `0`;
+	 *		- [fragmentation_threshold](\ref cCONFIG::fragmentation_threshold) is set to `0`;
+	 *		- [blocks_fragmentation_threshold](\ref cCONFIG::blocks_fragmentation_threshold) is set to `0`;
+	 *		- [to_sparse](\ref cSPARSE) is set to \ref SPARSE;
+	 *		- [flash_mehtod](\ref cFLASH_MODE) is set to \ref CDUMMY_MODE;
+	 *		- [on_conflict](\ref cCFG_CONFLICT) is set to RAISE_ERR;
+	 *		- [allow_insertion](\ref cALLOW_INSERTION) is set to \ref CDISABLE.
+	 *	\return initialized pointer to \ref cCONFIG structure with default field values.
+	 *	\warning \ref cCONFIG::codec_name is not set by default.
+	 */
+	cCONFIG* get_default_cfg();	
 	/*! \ingroup cstorage 
 	 * \brief Open a storage file.
 	 *
