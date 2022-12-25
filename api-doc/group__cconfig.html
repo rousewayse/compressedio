@@ -81,7 +81,8 @@ $(function() {
   <div class="summary">
 <a href="#nested-classes">Data Structures</a> &#124;
 <a href="#typedef-members">Typedefs</a> &#124;
-<a href="#enum-members">Enumerations</a>  </div>
+<a href="#enum-members">Enumerations</a> &#124;
+<a href="#func-members">Functions</a>  </div>
   <div class="headertitle"><div class="title">cCONFIG</div></div>
 </div><!--header-->
 <div class="contents">
@@ -121,6 +122,12 @@ Enumerations</h2></td></tr>
 , <a class="el" href="group__cconfig.html#gga19f241cffb818c1faba46d66f1e605e3a7bfd62b114327022955e78762e27bcfc">RAISE_ERR</a>
  }</td></tr>
 <tr class="separator:ga19f241cffb818c1faba46d66f1e605e3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:ga8d9e720a52d084a2f7d6b09d058df083"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structcCONFIG.html">cCONFIG</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__cconfig.html#ga8d9e720a52d084a2f7d6b09d058df083">get_default_cfg</a> ()</td></tr>
+<tr class="memdesc:ga8d9e720a52d084a2f7d6b09d058df083"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generate a default configuration. A list of default values:  <a href="group__cconfig.html#ga8d9e720a52d084a2f7d6b09d058df083">More...</a><br /></td></tr>
+<tr class="separator:ga8d9e720a52d084a2f7d6b09d058df083"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <p >Library behaviour configuration. </p>
@@ -208,6 +215,38 @@ Enumerations</h2></td></tr>
 <tr><td class="fieldname"><a id="gga757479336404a40c0d4d71128ac4b9aba5f36eae5002682380c396d0930e13ba8" name="gga757479336404a40c0d4d71128ac4b9aba5f36eae5002682380c396d0930e13ba8"></a>NOSPARSE&#160;</td><td class="fielddoc"><p >Sparce optimization is disabled. Free blocks are stored as is. </p>
 </td></tr>
 </table>
+
+</div>
+</div>
+<h2 class="groupheader">Function Documentation</h2>
+<a id="ga8d9e720a52d084a2f7d6b09d058df083" name="ga8d9e720a52d084a2f7d6b09d058df083"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga8d9e720a52d084a2f7d6b09d058df083">&#9670;&#160;</a></span>get_default_cfg()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structcCONFIG.html">cCONFIG</a> * get_default_cfg </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generate a default configuration. A list of default values: </p>
+<ul>
+<li><a class="el" href="structcCONFIG.html#abf3d5c128f9c91325830940a438556ef">base_block_size</a> is set to <code>16384</code>, i.e. 16Kb;</li>
+<li><a class="el" href="structcCACHE.html">cache_size</a> is set to <code>0</code>;</li>
+<li><a class="el" href="structcCONFIG.html#a4854935e714acf19ad1a6423dd80ac42">fragmentation_threshold</a> is set to <code>0</code>;</li>
+<li><a class="el" href="structcCONFIG.html#afb0df6fc5ddbb878dfb154ddf423ffa2">blocks_fragmentation_threshold</a> is set to <code>0</code>;</li>
+<li><a class="el" href="group__cconfig.html#ga757479336404a40c0d4d71128ac4b9ab">to_sparse</a> is set to <a class="el" href="group__cconfig.html#gga757479336404a40c0d4d71128ac4b9aba2b6758a3fe10dd98bd594ddf6f341a4d">SPARSE</a>;</li>
+<li><a class="el" href="group__cconfig.html#ga2c47374bdc13a61066b5bede4412dfb8">flash_mehtod</a> is set to <a class="el" href="group__cconfig.html#gga2c47374bdc13a61066b5bede4412dfb8a9d3c2452af90d860b27c7a00c702890d">CDUMMY_MODE</a>;</li>
+<li><a class="el" href="group__cconfig.html#ga19f241cffb818c1faba46d66f1e605e3">on_conflict</a> is set to RAISE_ERR;</li>
+<li><a class="el" href="group__cconfig.html#ga8d1fe22cf04fc041dce11cae23d298b1">allow_insertion</a> is set to <a class="el" href="group__cconfig.html#gga8d1fe22cf04fc041dce11cae23d298b1a64e96e79248e7ece4d16aff4b61c2216">CDISABLE</a>. <dl class="section return"><dt>Returns</dt><dd>initialized pointer to <a class="el" href="structcCONFIG.html">cCONFIG</a> structure with default field values. </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd><a class="el" href="structcCONFIG.html#ab279e9023fd3fed790173f1750a40aea">cCONFIG::codec_name</a> is not set by default. </dd></dl>
+</li>
+</ul>
 
 </div>
 </div>
