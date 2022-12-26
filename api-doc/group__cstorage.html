@@ -114,10 +114,10 @@ Functions</h2></td></tr>
 <tr class="memdesc:gaaa1b1c7f9275459a2adffae3bd5152d3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Close storage file.  <a href="group__cstorage.html#gaaa1b1c7f9275459a2adffae3bd5152d3">More...</a><br /></td></tr>
 <tr class="separator:gaaa1b1c7f9275459a2adffae3bd5152d3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga2db071cf2ec97133f8a72f044da8a76f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__cstorage.html#ga2db071cf2ec97133f8a72f044da8a76f">cremove</a> (<a class="el" href="structcSTORAGE.html">cSTORAGE</a> *storage, const char *filename)</td></tr>
-<tr class="memdesc:ga2db071cf2ec97133f8a72f044da8a76f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a file inside of storage file.  <a href="group__cstorage.html#ga2db071cf2ec97133f8a72f044da8a76f">More...</a><br /></td></tr>
+<tr class="memdesc:ga2db071cf2ec97133f8a72f044da8a76f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove a file inside a storage file.  <a href="group__cstorage.html#ga2db071cf2ec97133f8a72f044da8a76f">More...</a><br /></td></tr>
 <tr class="separator:ga2db071cf2ec97133f8a72f044da8a76f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ga7353cae9c79317f7c6a89982ad635e50"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="group__cstorage.html#ga7353cae9c79317f7c6a89982ad635e50">crename</a> (<a class="el" href="structcSTORAGE.html">cSTORAGE</a> *storage, const char *old_filename, const char *new_filename)</td></tr>
-<tr class="memdesc:ga7353cae9c79317f7c6a89982ad635e50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes a file (stream) name in storage.  <a href="group__cstorage.html#ga7353cae9c79317f7c6a89982ad635e50">More...</a><br /></td></tr>
+<tr class="memdesc:ga7353cae9c79317f7c6a89982ad635e50"><td class="mdescLeft">&#160;</td><td class="mdescRight">Changes a file (stream) name in storage file.  <a href="group__cstorage.html#ga7353cae9c79317f7c6a89982ad635e50">More...</a><br /></td></tr>
 <tr class="separator:ga7353cae9c79317f7c6a89982ad635e50"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
@@ -140,7 +140,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Close storage file. </p>
-<p >Frees <a class="el" href="structcSTORAGE.html" title="Structure representing a opened storage file.">cSTORAGE</a> structure and closes assotioted with it file. </p><dl class="params"><dt>Parameters</dt><dd>
+<p >Frees <a class="el" href="structcSTORAGE.html" title="Structure representing a opened storage file.">cSTORAGE</a> structure and closes assotiated with it file. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">storage</td><td>pointer to <a class="el" href="structcSTORAGE.html">cSTORAGE</a> structure instance, which is being closed. </td></tr>
   </table>
@@ -214,7 +214,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Remove a file inside of storage file. </p>
+<p>Remove a file inside a storage file. </p>
 <p >Declares all file blocks as free blocks. </p><dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">storage</td><td>pointer to <a class="el" href="structcSTORAGE.html">cSTORAGE</a> structure instance, which contains file. </td></tr>
@@ -258,7 +258,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>Changes a file (stream) name in storage. </p>
+<p>Changes a file (stream) name in storage file. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">storage</td><td>pointer to <a class="el" href="structcSTORAGE.html">cSTORAGE</a> structure instance containing a <a class="el" href="structcFILE.html">file</a>. </td></tr>
