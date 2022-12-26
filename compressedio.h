@@ -177,14 +177,14 @@ extern "C"{
 	/*! \ingroup cstorage 
 	 * \brief Close storage file. 
 	 *
-	 * Frees cSTORAGE structure and closes assotioted with it file.
+	 * Frees cSTORAGE structure and closes assotiated with it file.
 	 * \param [in] storage pointer to \ref cSTORAGE structure instance, which is being closed.
 	 * \return 0 if succeeded and -1 otherwise
 	 */
 	int cclose(cSTORAGE* storage);
 	
 	/*! \ingroup cstorage 
-	 * \brief Remove a file inside of storage file. 
+	 * \brief Remove a file inside a storage file. 
 	 * 
 	 * Declares all file blocks as free blocks.
 	 * \param storage pointer to \ref cSTORAGE structure instance, which contains file.
@@ -194,7 +194,7 @@ extern "C"{
 	int cremove(cSTORAGE* storage, const char* filename);
 	
 	/*!\ingroup cstorage
-	 * \brief Changes  a file (stream) name  in storage.
+	 * \brief Changes  a file (stream) name  in storage file.
 	 *
 	 * \param storage  pointer to \ref cSTORAGE structure instance containing a [file](\ref cFILE).
 	 * \param old_filename file name string pointer to [file](\ref cFILE) which is being renamed.
